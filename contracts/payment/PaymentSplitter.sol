@@ -51,7 +51,7 @@ contract PaymentSplitter {
     }
 
     // return address of a payee
-    function payee(uint256 index) public view returns (uint256) {
+    function payee(uint256 index) public view returns (address) {
         return _payees[index];
     }
 
@@ -65,7 +65,7 @@ contract PaymentSplitter {
             .div(_totalShares)
             .sub(_released[account]);
 
-        require(payments != 0);
+        require(payment != 0);
 
         _released[account] = _released[account].add(payment);
         _totalReleased = _totalReleased.add(payment);

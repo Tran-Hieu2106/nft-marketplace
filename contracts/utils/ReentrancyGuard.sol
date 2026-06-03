@@ -1,31 +1,18 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.8.24;
 
-/*
- * @title Helps contracts guard against reentrancy attacks.
- * @dev If you mark a function "nonReentrant", you should also
- * mark it 'external'.
- */
-contract ReentrancyGuard {
-  // @dev counter to allow mutex lock with only one SSTORE operation
-  uint256 private _guardCounter;
+abstract contract ReentrancyGuard {
+    uint256 private constant NOT_ENTERED = 1;
+    uint256 private constant ENTERED = 2;
+    uint256 private _status;
 
-  constructor() internal {
-    // Counter starts at one, which is apparently
-    // a more expensive operation.
-    _guardCounter = 1;
-  }
+    constructor() {
+        _status = NOT_ENTERED;
+    }
 
-  /**
-   * @dev Prevents a contract from calling itself, directly or indirectly.
-   * Calling a `nonReentrant` function from another `nonReentrant`
-   * function is not supported. It is possible to prevent this from happening
-   * by making the `nonReentrant` function external, and make it call a
-   * `private` function that does the actual work.
-   */
-  modifier nonReentrant() {
-    _guardCounter += 1;
-    uint256 localCounter = _guardCounter;
-    _;
-    require(localCounter == _guardCounter);
-  }
+    modifier nonReentrant() {
+        require(_status != ENTERED, "ReentrancyGuard: reentrant call");
+        _status = ENTERED;
+        _;
+        _status = NOT_ENTERED;
+    }
 }
