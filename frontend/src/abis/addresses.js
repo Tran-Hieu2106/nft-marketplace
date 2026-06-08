@@ -11,8 +11,8 @@ export const ADDRESSES = {
   },
   // Sepolia testnet — fill in after deploying
     11155111: {
-    MARKETPLACE: "0x6c1ddB4c0CdcCD1cb05eE59845b3E6bcD544F497",
-    NFT:         "0x8c69472d969290Ff7C37C3767cde0ff2f32CA880",
+    MARKETPLACE: "0x4415A39487C220e8153Be69bBba8A923cC0bD951",
+    NFT:         "0x0F6d06933D5F6126cC9EC3904669c85b578B1aa3",
   },
 };
 
